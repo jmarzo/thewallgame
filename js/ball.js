@@ -28,7 +28,7 @@ class Ball {
     ) {
       const angle = getRandom(0, 2 * Math.PI); // random between 0° and 360°
 
-      console.log(angle);
+      //console.log(angle);
 
       this.direction.dx = Math.cos(angle);
       this.direction.dy = Math.sin(angle);
@@ -98,9 +98,15 @@ class Ball {
     }
 
     if (this.racketMiss()) {
+      // yous lose!!!
       this.element.style.display = "none";
       this.sadTrombone.play();
-      //location.reload();
+
+      setTimeout(() => {
+        let message = document.getElementById("retry");
+        message.style.display = "block";
+        location.reload();
+      }, 4000);
     } else {
       // keep going!
       this.x += this.direction.dx * this.speed * timeSlice;

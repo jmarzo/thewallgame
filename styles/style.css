@@ -23,6 +23,11 @@ p {
   font-weight: lighter;
 }
 
+#retry p {
+  color: red;
+  display: none;
+}
+
 #racket {
   position: absolute;
   background-color: white;

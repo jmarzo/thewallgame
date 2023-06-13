@@ -6,7 +6,7 @@ const ball = new Ball(0.4, racket);
 function update(time) {
   if (previousTime) {
     const timeSlice = time - previousTime;
-    //console.log(timeSlice);
+    console.log(timeSlice);
     //update the ball
     ball.update(timeSlice);
   }
