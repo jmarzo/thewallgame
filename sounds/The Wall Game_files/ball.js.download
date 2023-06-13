@@ -6,12 +6,9 @@ class Ball {
     this.direction = { dx: 0, dy: 1 }; // default to get into the while
     this.speed = speed;
     this.racket = racket;
-    // sound
     this.racketHit = new Audio("../sounds/mixkit-metal-bowl-hit-1842.wav");
     this.sadTrombone = new Audio("../sounds/Sad-trombone.mp3");
     this.wallHit = new Audio("../sounds/mixkit-metallic-sword-strike-2160.wav");
-    this.bullet = new Audio("../sounds/bullet.mp3");
-    this.sky = new Audio("../sounds/sky.mp3");
 
     this.reset(); // execute the reset method to restart from the default setting
   }
@@ -23,7 +20,7 @@ class Ball {
 
     //direction
     while (
-      Math.abs(this.direction.dx <= 0.3) ||
+      Math.abs(this.direction.dx <= 0.2) ||
       Math.abs(this.direction.dx >= 0.9)
     ) {
       const angle = getRandom(0, 2 * Math.PI); // random between 0° and 360°
@@ -73,25 +70,13 @@ class Ball {
     const ballBound = this.element.getBoundingClientRect(); // collision handler
     const racketBound = this.racket.element.getBoundingClientRect();
 
-    if (this.ballHitsTheSky()) {
+    if (this.ballHitsTheSky() || this.ballHitsTheGround()) {
       this.direction.dy *= -1; //invert y vector
-      this.bullet.play();
+      this.racketHit.play();
       this.y += this.direction.dy * this.speed * timeSlice;
     }
 
-    if (this.ballHitsTheGround()) {
-      this.direction.dy *= -1; //invert y vector
-      this.bullet.play();
-      this.y += this.direction.dy * this.speed * timeSlice;
-    }
-
-    if (this.ballHitsTheWall()) {
-      this.direction.dx *= -1; // invert x vector
-      this.wallHit.play();
-      this.x += this.direction.dx * this.speed * timeSlice;
-    }
-
-    if (this.ballHitsTheRacket()) {
+    if (this.ballHitsTheWall() || this.ballHitsTheRacket()) {
       this.direction.dx *= -1; // invert x vector
       this.racketHit.play();
       this.x += this.direction.dx * this.speed * timeSlice;
@@ -102,12 +87,12 @@ class Ball {
       this.sadTrombone.play();
       //location.reload();
     } else {
-      // keep going!
       this.x += this.direction.dx * this.speed * timeSlice;
       this.y += this.direction.dy * this.speed * timeSlice;
     }
 
-    //update the #ball position
+    //console.log(this.x);
+
     this.element.style.top = `${this.y}px`;
     this.element.style.left = `${this.x}px`;
   }
