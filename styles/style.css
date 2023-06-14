@@ -6,6 +6,10 @@ body {
   overflow: hidden; /* Hide scrollbars */
 }
 
+#game-start {
+  margin-top: 100px;
+}
+
 h1 {
   color: white;
   font-size: 7vw;
@@ -23,9 +27,10 @@ p {
   font-weight: lighter;
 }
 
-#retry p {
+#retry {
   color: red;
   display: none;
+  margin-top: 50%;
 }
 
 #racket {
@@ -51,7 +56,7 @@ p {
   background-color: red;
 }
 
-#wallTop {
+#wallHead {
   position: absolute;
   background-color: gray;
   top: 0;

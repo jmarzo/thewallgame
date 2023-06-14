@@ -1,17 +1,21 @@
 class Ball {
-  constructor(speed, racket) {
+  constructor(speed) {
     this.element = document.getElementById("ball"); // getting the div ball
     this.x = this.element.getBoundingClientRect().left;
     this.y = this.element.getBoundingClientRect().top;
     this.direction = { dx: 0, dy: 1 }; // default to get into the while
     this.speed = speed;
-    this.racket = racket;
+    this.racket = new Racket();
+    this.wallElement = document.getElementById("wall");
+    this.wallHitsCounter = 0;
     // sound
     this.racketHit = new Audio("../sounds/mixkit-metal-bowl-hit-1842.wav");
     this.sadTrombone = new Audio("../sounds/Sad-trombone.mp3");
     this.wallHit = new Audio("../sounds/mixkit-metallic-sword-strike-2160.wav");
     this.bullet = new Audio("../sounds/bullet.mp3");
-    this.sky = new Audio("../sounds/sky.mp3");
+    this.missionCompleted = false;
+    this.youHaveLost = false;
+    //this.sky = new Audio("../sounds/sky.mp3");
 
     this.reset(); // execute the reset method to restart from the default setting
   }
@@ -23,7 +27,7 @@ class Ball {
 
     //direction
     while (
-      Math.abs(this.direction.dx <= 0.3) ||
+      Math.abs(this.direction.dx <= 0.4) ||
       Math.abs(this.direction.dx >= 0.9)
     ) {
       const angle = getRandom(0, 2 * Math.PI); // random between 0° and 360°
@@ -38,9 +42,21 @@ class Ball {
 
   // collision handlers ------------------------------------------------------
 
+  /*ballHitsTheTop() {
+    const ballBound = this.element.getBoundingClientRect(); // collision handler
+    const wallHead = this.wallHead.getBoundingClientRect();
+    console.log(wallHead.left);
+    return (
+      ballBound.right >= window.innerWidth - wallHead.width &&
+      ballBound.bottom <= wallHead.bottom + ballBound.height
+    );
+  }*/
+
   ballHitsTheWall() {
     const ballBound = this.element.getBoundingClientRect(); // collision handler
-    return ballBound.right >= window.innerWidth;
+    const wallBound = this.wallElement.getBoundingClientRect();
+
+    return ballBound.right >= window.innerWidth - wallBound.width;
   }
 
   racketMiss() {
@@ -69,9 +85,29 @@ class Ball {
     return ballBound.bottom >= window.innerHeight;
   }
 
+  setWallOriginalColor() {
+    this.wallElement = document.getElementById("wall");
+    this.wallElement.style.backgroundColor = "gray"; // the wall turns to the original color
+  }
+
+  wallHitAnimation() {
+    this.wallElement.style.backgroundColor = "red"; // the wall turns red for few ms
+    const myTimeout = setTimeout(this.setWallOriginalColor(), 60);
+  }
+
   update(timeSlice) {
     const ballBound = this.element.getBoundingClientRect(); // collision handler
     const racketBound = this.racket.element.getBoundingClientRect();
+
+    /*if (this.ballHitsTheTop) {
+      console.log("hits the top");
+      this.direction.dx = Math.cos(0.5);
+      this.direction.dy = Math.sin(0.5);
+
+      this.direction.dx *= -1; // invert x vector
+      this.wallHit.play();
+      this.x += this.direction.dx * this.speed * timeSlice;
+    }*/
 
     if (this.ballHitsTheSky()) {
       this.direction.dy *= -1; //invert y vector
@@ -86,9 +122,34 @@ class Ball {
     }
 
     if (this.ballHitsTheWall()) {
+      // THE BALL HITS THE WALL
+
       this.direction.dx *= -1; // invert x vector
       this.wallHit.play();
+
+      this.wallHitsCounter++;
+
+      if (this.wallHitsCounter === 5) {
+        this.wallElement.style.backgroundColor = "red";
+      }
+
+      if (this.wallHitsCounter === 10) {
+        this.wallElement.style.display.none;
+        this.wallElement.style.backgroundColor = "#333333";
+        this.missionCompleted = true;
+      }
+
+      //this.wallHitAnimation();
+      this.wallElement.style.backgroundColor = "red"; // the wall turns red for few ms
+      const myTimeout = setTimeout(hitFlash, 60);
+
+      function hitFlash() {
+        this.wallElement = document.getElementById("wall"); // NEEDED WHY?????
+        this.wallElement.style.backgroundColor = "gray"; // the wall turns to the original color
+      }
+
       this.x += this.direction.dx * this.speed * timeSlice;
+      this.speed = this.speed + 0.1;
     }
 
     if (this.ballHitsTheRacket()) {
@@ -101,12 +162,11 @@ class Ball {
       // yous lose!!!
       this.element.style.display = "none";
       this.sadTrombone.play();
+      this.youHaveLost = true;
 
       setTimeout(() => {
-        let message = document.getElementById("retry");
-        message.style.display = "block";
         location.reload();
-      }, 4000);
+      }, 3500);
     } else {
       // keep going!
       this.x += this.direction.dx * this.speed * timeSlice;

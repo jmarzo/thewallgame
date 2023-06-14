@@ -1,28 +1,35 @@
 let previousTime;
 
-const racket = new Racket();
-const ball = new Ball(0.4, racket);
+const ball = new Ball(0.4);
 
 function update(time) {
   if (previousTime) {
     const timeSlice = time - previousTime;
-    console.log(timeSlice);
+    //console.log(timeSlice);
+
     //update the ball
     ball.update(timeSlice);
   }
 
   previousTime = time;
 
-  window.requestAnimationFrame(update);
+  if (!ball.missionCompleted && !ball.youHaveLost) {
+    window.requestAnimationFrame(update);
+  } else if (ball.missionCompleted) {
+    alert("You did it! The Wall is down! Peace.");
+  } else {
+    let p = document.getElementById("retry");
+    p.style.display = "inline-block";
+  }
 }
 
 const onMouseMove = (e) => {
-  racket.element.style.top = e.pageY + "px";
+  ball.racket.element.style.top = e.pageY + "px";
 };
 
-let startButton = document.getElementById("start-button");
-
 document.addEventListener("mousemove", onMouseMove); // you can move the racket
+
+let startButton = document.getElementById("start-button");
 
 startButton.addEventListener("click", () => {
   let startDiv = document.getElementById("game-start");
