@@ -13,6 +13,9 @@ class Ball {
     this.sadTrombone = new Audio("../sounds/Sad-trombone.mp3");
     this.wallHit = new Audio("../sounds/mixkit-metallic-sword-strike-2160.wav");
     this.bullet = new Audio("../sounds/bullet.mp3");
+    this.bravo = new Audio("../sounds/bravo.mp3");
+    this.wallDown = new Audio("../sounds/walldown.mp3");
+    this.youLose = new Audio("/sounds/you-lose.mp3");
     this.missionCompleted = false;
     this.youHaveLost = false;
     //this.sky = new Audio("../sounds/sky.mp3");
@@ -129,13 +132,18 @@ class Ball {
 
       this.wallHitsCounter++;
 
-      if (this.wallHitsCounter === 5) {
+      if (this.wallHitsCounter === 3) {
         this.wallElement.style.backgroundColor = "red";
       }
 
-      if (this.wallHitsCounter === 10) {
-        this.wallElement.style.display.none;
-        this.wallElement.style.backgroundColor = "#333333";
+      if (this.wallHitsCounter === 4) {
+        this.wallElement.style.display = "none";
+        //this.wallElement.style.backgroundColor = "#333333";
+        this.wallDown.volume = 1;
+        this.wallDown.play();
+        setTimeout(() => {
+          this.bravo.play();
+        }, 3600);
         this.missionCompleted = true;
       }
 
@@ -149,7 +157,7 @@ class Ball {
       }
 
       this.x += this.direction.dx * this.speed * timeSlice;
-      this.speed = this.speed + 0.1;
+      this.speed = this.speed + 0.05;
     }
 
     if (this.ballHitsTheRacket()) {
@@ -163,6 +171,7 @@ class Ball {
       this.element.style.display = "none";
       this.sadTrombone.play();
       this.youHaveLost = true;
+      this.youLose.play();
 
       setTimeout(() => {
         location.reload();

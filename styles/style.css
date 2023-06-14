@@ -27,10 +27,25 @@ p {
   font-weight: lighter;
 }
 
+#lose {
+  margin-top: 100px;
+
+  display: none;
+}
+
+#win {
+  margin-top: 100px;
+
+  display: none;
+}
+
+#win h1 {
+  color: red;
+}
+
 #retry {
   color: red;
-  display: none;
-  margin-top: 50%;
+  margin-top: 100px;
 }
 
 #racket {

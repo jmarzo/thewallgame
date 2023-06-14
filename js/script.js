@@ -16,9 +16,10 @@ function update(time) {
   if (!ball.missionCompleted && !ball.youHaveLost) {
     window.requestAnimationFrame(update);
   } else if (ball.missionCompleted) {
-    alert("You did it! The Wall is down! Peace.");
+    let p = document.getElementById("win");
+    p.style.display = "inline-block";
   } else {
-    let p = document.getElementById("retry");
+    let p = document.getElementById("lose");
     p.style.display = "inline-block";
   }
 }
