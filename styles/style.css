@@ -6,9 +6,13 @@ body {
   overflow: hidden; /* Hide scrollbars */
 }
 
+#game-start {
+  margin-top: 100px;
+}
+
 h1 {
   color: white;
-  font-size: 7vw;
+  font-size: 6vw;
 }
 
 h1 span {
@@ -16,16 +20,28 @@ h1 span {
 }
 
 p {
+  margin-top: 25px;
   color: lightgrey;
-  width: 60%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   font-weight: lighter;
 }
 
-#retry p {
-  color: red;
+#lose {
+  margin-top: 100px;
+
   display: none;
+}
+
+#game-win {
+  margin-top: 100px;
+  display: none;
+}
+
+#retry {
+  color: red;
+  margin-top: 100px;
 }
 
 #racket {
@@ -51,7 +67,7 @@ p {
   background-color: red;
 }
 
-#wallTop {
+#wallHead {
   position: absolute;
   background-color: gray;
   top: 0;
@@ -73,6 +89,17 @@ p {
 }
 
 #start-button {
+  width: 200px;
+  height: 50px;
+  font-size: large;
+  background-color: red;
+  border-style: none;
+  border-radius: 1vw;
+  margin-top: 5vh;
+  color: white;
+}
+
+#refresh-button {
   width: 200px;
   height: 50px;
   font-size: large;
