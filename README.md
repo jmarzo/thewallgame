@@ -42,6 +42,8 @@ Be careful, every hit makes the ball speed up!
 - This project needed to be developed using HTML, CSS, JS.
 - DOM manipulation and OOP were mandatory requirements.
 
+---
+
 **JS Structure**
 
 - script.js contains the main game loop, it defines and manage every game stage: start, lose, win.
