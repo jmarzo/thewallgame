@@ -23,7 +23,7 @@ class Ball {
 
     this.reset(); // execute the reset method to restart from the default setting
   }
-
+  //
   reset() {
     //nitial setting -----> ball default position
     this.element.style.left = "10vw";
