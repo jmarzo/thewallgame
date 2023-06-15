@@ -13,6 +13,7 @@ class Ball {
     this.sadTrombone = new Audio("../sounds/Sad-trombone.mp3");
     this.wallHit = new Audio("../sounds/mixkit-metallic-sword-strike-2160.wav");
     this.bullet = new Audio("../sounds/bullet.mp3");
+    this.bullet2 = new Audio("../sounds/bullet2.mp3");
     this.bravo = new Audio("../sounds/bravo.mp3");
     this.wallDown = new Audio("../sounds/walldown.mp3");
     this.youLose = new Audio("/sounds/you-lose.mp3");
@@ -31,7 +32,7 @@ class Ball {
     //direction
     while (
       Math.abs(this.direction.dx <= 0.4) ||
-      Math.abs(this.direction.dx >= 0.9)
+      Math.abs(this.direction.dx >= 0.8)
     ) {
       const angle = getRandom(0, 2 * Math.PI); // random between 0° and 360°
 
@@ -120,7 +121,7 @@ class Ball {
 
     if (this.ballHitsTheGround()) {
       this.direction.dy *= -1; //invert y vector
-      this.bullet.play();
+      this.bullet2.play();
       this.y += this.direction.dy * this.speed * timeSlice;
     }
 
@@ -132,15 +133,16 @@ class Ball {
 
       this.wallHitsCounter++;
 
-      if (this.wallHitsCounter === 3) {
-        this.wallElement.style.backgroundColor = "red";
+      if (this.wallHitsCounter === 5) {
+        theme.playbackRate = 1.5;
       }
 
-      if (this.wallHitsCounter === 4) {
+      if (this.wallHitsCounter === 10) {
         this.wallElement.style.display = "none";
-        //this.wallElement.style.backgroundColor = "#333333";
+
         this.wallDown.volume = 1;
         this.wallDown.play();
+
         setTimeout(() => {
           this.bravo.play();
         }, 3600);
@@ -157,7 +159,7 @@ class Ball {
       }
 
       this.x += this.direction.dx * this.speed * timeSlice;
-      this.speed = this.speed + 0.05;
+      this.speed = this.speed + 0.03;
     }
 
     if (this.ballHitsTheRacket()) {
