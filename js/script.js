@@ -43,7 +43,7 @@ const onTouchMove = (e) => {
 
 document.addEventListener("mousemove", onMouseMove); // you can move the racket
 
-document.addEventListener("touchmove", onTouchMove);
+document.addEventListener("touchmove", onTouchMove); // touch screen ready
 
 let startButton = document.getElementById("start-button");
 
