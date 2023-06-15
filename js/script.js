@@ -37,7 +37,13 @@ const onMouseMove = (e) => {
   ball.racket.element.style.top = e.pageY + "px";
 };
 
+const onTouchMove = (e) => {
+  ball.racket.element.style.top = e.pageY + "px";
+};
+
 document.addEventListener("mousemove", onMouseMove); // you can move the racket
+
+document.addEventListener("touchmove", onTouchMove);
 
 let startButton = document.getElementById("start-button");
 
