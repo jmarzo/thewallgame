@@ -50,5 +50,5 @@ Be careful, every hit makes the ball speed up!
 
 ---
 
-Credits
+**Credits***
 The Wall Game was developed by Jacopo Marzola
