@@ -1,5 +1,5 @@
 let previousTime;
-let theme = new Audio("../sounds/Green_Day-Hitchin'_A_Ride_8bit.mp3");
+let theme = new Audio("sounds/Green_Day-Hitchin'_A_Ride_8bit.mp3");
 
 const ball = new Ball(0.4); // the game's ball woth its starting SPEED
 
