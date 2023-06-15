@@ -9,14 +9,14 @@ class Ball {
     this.wallElement = document.getElementById("wall");
     this.wallHitsCounter = 0;
     // sound
-    this.racketHit = new Audio("../sounds/mixkit-metal-bowl-hit-1842.wav");
+    this.racketHit = new Audio("./sounds/mixkit-metal-bowl-hit-1842.wav");
     this.sadTrombone = new Audio("../sounds/Sad-trombone.mp3");
-    this.wallHit = new Audio("../sounds/mixkit-metallic-sword-strike-2160.wav");
-    this.bullet = new Audio("../sounds/bullet.mp3");
-    this.bullet2 = new Audio("../sounds/bullet2.mp3");
-    this.bravo = new Audio("../sounds/bravo.mp3");
-    this.wallDown = new Audio("../sounds/walldown.mp3");
-    this.youLose = new Audio("/sounds/you-lose.mp3");
+    this.wallHit = new Audio("./sounds/mixkit-metallic-sword-strike-2160.wav");
+    this.bullet = new Audio("./sounds/bullet.mp3");
+    this.bullet2 = new Audio("./sounds/bullet2.mp3");
+    this.bravo = new Audio("./sounds/bravo.mp3");
+    this.wallDown = new Audio("./sounds/walldown.mp3");
+    this.youLose = new Audio("./sounds/you-lose.mp3");
     this.missionCompleted = false;
     this.youHaveLost = false;
     //this.sky = new Audio("../sounds/sky.mp3");
